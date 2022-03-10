@@ -23,6 +23,11 @@ def get_graph(stat, file_data, multi=False):
     if multi:
         ggplot += ' + facet_wrap(\'~ASM\', ncol=4)'
 
+    # Add style
+    ggplot += '''+theme_bw(base_size = 12, base_family = "Helvetica")+
+             theme(legend.position="top") +
+             theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())'''
+
     r_cmd = '''
             library(ggplot2)
             library(dplyr)
@@ -46,7 +51,10 @@ def get_state_model_graph():
     
         p1 = ggplot(data, aes(x=machine_action, y=as.numeric(UnvisitedActions), color=ASM)) +
              geom_line() +
-             facet_wrap('~ASM', ncol=1)
+             facet_wrap('~ASM', ncol=1)+
+             theme_bw(base_size = 12, base_family = "Helvetica")+
+             theme(legend.position="top") +
+             theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
     
         ggsave(p1, filename = "{1}/{2}_{4}.png",height = 4, width = 7)
     ''')
